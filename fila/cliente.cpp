@@ -9,9 +9,10 @@ int main(){
     int x = insere_fila(fi,2);
     x = insere_fila(fi,3);
     x = insere_fila(fi,4);
-    x = insere_fila(fi,1);
+    x = insere_fila(fi,5);
     int y = consulta_fila(fi,&z);
-
+    //x = remove_fila(fi);
+    fi = inverte_fila(fi);
     /*
     printf("Primeiro valor %d\n",z);
     printf("Tamanho da fila %d",tamanho(fi));
@@ -21,6 +22,6 @@ int main(){
         printf("Nao esta cheia!");
     }*/
 
-    x = verifica_ord(fi);
+    //x = verifica_ord(fi);
     return 0;
 }

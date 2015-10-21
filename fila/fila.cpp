@@ -96,3 +96,17 @@ int verifica_ord(Fila* fi){
     }
 
 }
+
+Fila* inverte_fila(Fila* fi){
+    int x,y;
+    Fila *fi2 = cria_fila();
+    while(!fila_vazia(fi)){
+        y = consulta_fila(fi,&x);
+        fi2->x[fi->qtd-1] = x;
+        fi2->qtd++;
+        remove_fila(fi);
+    }
+    fi2->inicio = 0;
+    fi2->fim = fi2->qtd-1;
+    return fi2;
+}

@@ -10,3 +10,4 @@ int insere_fila(Fila* fi, int x);
 int remove_fila(Fila* fi);
 int consulta_fila(Fila* fi, int *x);
 int verifica_ord(Fila* fi);
+Fila* inverte_fila(Fila* fi);
