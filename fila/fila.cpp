@@ -110,3 +110,12 @@ Fila* inverte_fila(Fila* fi){
     fi2->fim = fi2->qtd-1;
     return fi2;
 }
+
+void mostra(Fila* fi){
+    int x,y;
+    while(!fila_vazia(fi)){
+        y = consulta_fila(fi,&x);
+        printf("%d",x\n);
+        remove_fila(fi);
+    }
+}

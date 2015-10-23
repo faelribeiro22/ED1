@@ -10,6 +10,7 @@ int main(){
     x = insere_fila(fi,3);
     x = insere_fila(fi,4);
     x = insere_fila(fi,5);
+    mostra(fi);
     int y = consulta_fila(fi,&z);
     //x = remove_fila(fi);
     fi = inverte_fila(fi);
