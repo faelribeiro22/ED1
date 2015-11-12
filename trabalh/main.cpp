@@ -29,13 +29,10 @@ int insere(Lista* l, char letra){
         no->prox = NULL;
         return 1;
     }else{
-        Elem *aux = l->head;
-        while(aux->prox != NULL){
-            aux = aux->prox;
-        }
-        aux->prox = no;
-        no->prox = NULL;
-        return 1;
+       no->letra = letra;
+       no->prox = l->head;
+       l->head = no;
+       return 1;
     }
 }
 
@@ -43,17 +40,7 @@ Lista* inverte(Lista* l){
     Lista *invertida = cria_lista();
     Elem *aux = l->head;
     while(aux != NULL){
-        Elem *no = (Elem*)malloc(sizeof(Elem));
-        if(invertida->head == NULL){
-            no->letra = aux->letra;
-            invertida->head = no;
-            no->prox = NULL;
-        }else{
-            no->letra = aux->letra;
-            no->prox = invertida->head;
-            invertida->head = no;
-        }
-
+        insere(invertida,aux->letra);
         aux = aux->prox;
     }
     return invertida;
@@ -90,20 +77,8 @@ void exibe(Lista *l){
     }
 }
 
-void libera(Lista *li){
-    if(li != NULL){
-        Elem *no;
-        while(li != NULL){
-            no = li->head;
-            li->head = no->prox;
-            free(no);
-        }
-        free(li);
-    }
-}
-
 int main(){
-    int testes,nos;
+    int testes,nos,i;
     scanf("%d",&testes);
         while(testes != 0){
             Lista *prefixa = cria_lista();
@@ -112,17 +87,26 @@ int main(){
             Elem *raiz;
             Elem *folha_dir;
             scanf("%d",&nos);
-            char s1[nos],s2[nos];
+            char s1[nos-1],s2[nos-1];
             scanf("%s",&s1);
             scanf("%s",&s2);
-            for(int i = 0; i<nos;i++){
+            if(strcmp(s1,s2) == 0){
+                for(i = nos; i>=0;i--){
+                insere(posfixa,s1[i]);
+                }
+                posfixa = inverte(posfixa);
+            }else{
+                for(i = nos; i>=0;i--){
                 insere(prefixa,s1[i]);
                 insere(infixa,s2[i]);
+                }
+                raiz = prefixa->head;
+                folha_dir = busca(infixa,posfixa,raiz);
+                galho_direito(infixa,posfixa,folha_dir);
+                insere(posfixa,raiz->letra);
+                posfixa = inverte(posfixa);
             }
-            raiz = prefixa->head;
-            folha_dir = busca(infixa,posfixa,raiz);
-            galho_direito(infixa,posfixa,folha_dir);
-            insere(posfixa,raiz->letra);
+
             exibe(posfixa);
             printf("\n");
             testes--;
