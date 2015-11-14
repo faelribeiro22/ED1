@@ -43,7 +43,7 @@ void exibe(Lista* l){
 char retorna(Lista* l){
     return l->letras[0];
 }
-
+//insere elementos de uma lista em outra
 void envia(Lista* aux,Lista* posfixa){
     int i = aux->topo-1;
     for(;i>=0;i--){
@@ -51,35 +51,48 @@ void envia(Lista* aux,Lista* posfixa){
     }
 }
 
+//função responsvel na construção da posfixa
 Lista* monta_pos(Lista* prefixa, Lista* infixa, char raiz){
     Lista* posfixa = cria_lista();
     Lista* aux = cria_lista();
     int c = 0;
+    //percorre toda a lista
     for(int i=0;i<prefixa->topo;i++){
-        if(infixa->letras[i]>prefixa->letras[i]){
-            insere(posfixa,infixa->letras[i]);
+        //compara se um caracter é maior que o outro(código ASCII)
+        if(infixa->letras[i]>prefixa->letras[i] || i == 0){
+            //esse if impede que a raiz da árvore seja inserida no ínico da posfixa
+            if(infixa->letras[i] != raiz){
+                insere(posfixa,infixa->letras[i]);
+            }
+            //se não for maior e não for a riz, ira inserir em uma lista auxiliar
         }else if(infixa->letras[i] != raiz){
+            c++;
             insere(aux,infixa->letras[i]);
         }
+        //quando chegar no caracter raiz na infixa, teremos os galhos a esquerda, com isso grava todos os valores que foram salvos na lista auxiliar
         if(infixa->letras[i] == raiz){
             envia(aux,posfixa);
             libera(aux);
         }
     }
-    envia(aux,posfixa);
+    //apos sair do for teremos os galhos a direita, com isso grava os elementos que foram salvo na lista auxiliar
+    if(c != 0){
+        envia(aux,posfixa);
+    }
     insere(posfixa,raiz);
     return posfixa;
 }
 
 int main(){
-    Lista *prefixa = cria_lista();
-    Lista *infixa = cria_lista();
-
+    Lista *prefixa;
+    Lista *infixa;
     int testes,nos,i;
-    char s1[MAX],s2[MAX],raiz;
     scanf("%d",&testes);
     while(testes != 0){
+        char s1[MAX],s2[MAX],raiz;
         Lista *posfixa;
+        prefixa = cria_lista();
+        infixa = cria_lista();
         scanf("%d %s %s",&nos,&s1,&s2);
         for(i=0;i<nos;i++){
             insere(prefixa,s1[i]);
@@ -89,6 +102,8 @@ int main(){
         posfixa = monta_pos(prefixa,infixa,raiz);
         exibe(posfixa);
         libera(posfixa);
+        libera(prefixa);
+        libera(infixa);
         testes--;
     }
 }
