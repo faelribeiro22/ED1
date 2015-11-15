@@ -12,7 +12,7 @@ typedef struct lista Lista;
 
 //cria lista estatica, com uma string tamanho 52
 Lista* cria_lista(){
-    Lista* l = (Lista*)malloc(sizeof(Lista));
+    Lista *l = (Lista*)malloc(sizeof(Lista));
     l->topo = 0;
     return l;
 }
@@ -27,7 +27,6 @@ int insere(Lista* l, char letra){
 //esvazia a lista logicamente
 void libera(Lista* l){
     l->topo = 0;
-    free(l);
 }
 
 //exibe os elementos da lista
@@ -84,16 +83,16 @@ Lista* monta_pos(Lista* prefixa, Lista* infixa, char raiz){
 }
 
 int main(){
+    int testes,nos,i;
     Lista *prefixa;
     Lista *infixa;
-    int testes,nos,i;
     scanf("%d",&testes);
     while(testes != 0){
-        char s1[MAX],s2[MAX],raiz;
-        Lista *posfixa;
         prefixa = cria_lista();
         infixa = cria_lista();
+        char s1[MAX],s2[MAX],raiz;
         scanf("%d %s %s",&nos,&s1,&s2);
+        Lista *posfixa;
         for(i=0;i<nos;i++){
             insere(prefixa,s1[i]);
             insere(infixa,s2[i]);
@@ -102,8 +101,6 @@ int main(){
         posfixa = monta_pos(prefixa,infixa,raiz);
         exibe(posfixa);
         libera(posfixa);
-        libera(prefixa);
-        libera(infixa);
         testes--;
     }
 }
