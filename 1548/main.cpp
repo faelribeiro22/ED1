@@ -61,10 +61,10 @@ Fila* ordenaFila(Fila* f){
     Fila *p = copiaFila(f);
     int i,j,maior;
     Aluno temp;
-    for(i = f->inicio; i<f->fim;i++){
+    for(i = 0; i<f->fim;i++){
         maior = i;
         for(j = i+1; j<f->fim;j++){
-            if(f->alunos[j].nota > f->alunos[maior].nota){
+            if(p->alunos[j].nota > p->alunos[maior].nota){
                 maior = j;
             }
         }
