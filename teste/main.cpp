@@ -95,6 +95,8 @@ int main(){
                             Pop(operadores,&t);
                             Push(posfixa,t);
                             Push(operadores,letra);
+                        }else{
+                            Push(operadores,letra);
                         }
                     }else{
                         Push(operadores,letra);
